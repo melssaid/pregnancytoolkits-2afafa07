@@ -97,7 +97,6 @@ function getReasonBadge(
   toolId: string,
   stage: JourneyStage,
   week: number | null,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: (key: string, opts?: any) => string
 ): Reason | null {
   const range = STAGE_MAP[toolId];

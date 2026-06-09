@@ -230,6 +230,7 @@ self.addEventListener('message', (event) => {
     return;
   }
 
+  if (type === 'SHOW_NOTIFICATION') {
     const { title, body, icon, tag, url, badge } = payload;
     event.waitUntil(
       self.registration.showNotification(title, {
