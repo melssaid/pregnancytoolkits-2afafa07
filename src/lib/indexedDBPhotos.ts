@@ -133,7 +133,11 @@ export async function fileToBlob(file: File): Promise<Blob> {
       canvas.toBlob(
         (blob) => {
           URL.revokeObjectURL(url);
-          blob ? resolve(blob) : reject(new Error('Compression failed'));
+          if (blob) {
+            resolve(blob);
+          } else {
+            reject(new Error('Compression failed'));
+          }
         },
         'image/jpeg',
         0.8

@@ -81,7 +81,7 @@ export function HealthInputForm({ health, onUpdate, lang }: HealthInputFormProps
     if (kickStats.totalKicks > 0 && health.lastKickCount !== kickStats.totalKicks) {
       onUpdate('lastKickCount', kickStats.totalKicks);
     }
-  }, [kickStats.totalKicks]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [kickStats.totalKicks, health.lastKickCount, onUpdate]);
 
   const getLabel = (option: Record<string, string>) => option[lang] || option.en;
 

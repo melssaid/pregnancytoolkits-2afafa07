@@ -63,9 +63,8 @@ export const WeeklyContractionFrequencyChart = memo(function WeeklyContractionFr
     const a = data.slice(0, 3).reduce((s, d) => s + d.count, 0);
     const b = data.slice(4).reduce((s, d) => s + d.count, 0);
     if (b > a + 1) trend = "up";
-    else if (b < a - 1) trend = "down";
+    else     if (b < a - 1) trend = "down";
     return { chartData: data, stats: { total, activeDays, peak, trend } };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale, tick]);
 
   if (stats.total === 0) return null;

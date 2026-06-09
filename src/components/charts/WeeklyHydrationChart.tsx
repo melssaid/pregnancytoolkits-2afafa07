@@ -62,8 +62,6 @@ export const WeeklyHydrationChart = memo(function WeeklyHydrationChart() {
     if (b > a + 1) trend = "up";
     else if (b < a - 1) trend = "down";
     return { chartData: data, stats: { avg, total, goalMet, trend } };
-    // `tick` is the live-data signal — must invalidate the memo.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale, waterKey, tick]);
 
   if (stats.total === 0) return null;

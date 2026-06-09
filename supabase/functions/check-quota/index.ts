@@ -78,7 +78,7 @@ Deno.serve(async (req) => {
 
     // ── Sum ALL active coupon bonuses for this device/user ──
     let couponBonus = 0;
-    let activeCoupons: Array<{ couponId: string; code: string; durationType: string; expiresAt: string; bonusPoints: number }> = [];
+    const activeCoupons: Array<{ couponId: string; code: string; durationType: string; expiresAt: string; bonusPoints: number }> = [];
     try {
       const { data: claims } = await supabase
         .from('coupon_claims')

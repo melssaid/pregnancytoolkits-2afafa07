@@ -149,14 +149,14 @@ describe('TOOL_WEIGHT_REGISTRY', () => {
     }
   });
 
-  it('standard tools have weight 1', () => {
+  it('standard tools have weight 2', () => {
     const standardTools = [
       'symptom-analysis', 'pregnancy-assistant',
       'hospital-bag', 'meal-suggestion', 'vitamin-advice',
       'baby-cry-analysis', 'sleep-analysis',
     ] as const;
     for (const tool of standardTools) {
-      expect(TOOL_WEIGHT_REGISTRY[tool]).toBe(1);
+      expect(TOOL_WEIGHT_REGISTRY[tool]).toBe(2);
     }
   });
 
@@ -179,8 +179,8 @@ describe('resolveWeight', () => {
     expect(resolveWeight('kick-analysis')).toBe(2);
   });
 
-  it('resolves standard tool to weight 1 from toolType', () => {
-    expect(resolveWeight('symptom-analysis')).toBe(1);
+  it('resolves standard tool to weight 2 from toolType', () => {
+    expect(resolveWeight('symptom-analysis')).toBe(2);
   });
 
   it('resolves weight from section when no toolType', () => {
@@ -189,7 +189,7 @@ describe('resolveWeight', () => {
   });
 
   it('resolves weight from section for standard sections', () => {
-    expect(resolveWeight(undefined, 'symptoms')).toBe(1);
+    expect(resolveWeight(undefined, 'symptoms')).toBe(2);
   });
 
   it('defaults to 1 for unknown inputs', () => {

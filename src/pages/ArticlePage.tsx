@@ -76,6 +76,30 @@ const ArticlePage = () => {
         body: "We’re still preparing the full text for this article. Please check back soon or continue with a related tool or another article from this section.",
       };
 
+  // Move useMemo calls before the conditional return
+  const resolvedSections = useMemo(() => {
+    if (!article) return [] as { heading: string; body: string }[];
+    return dailyContent.sections.length ? dailyContent.sections : article.sections;
+  }, [article, dailyContent.sections]);
+
+  const resolvedTitle = article ? (dailyContent.data?.title_override?.trim() || article.title) : "";
+  const resolvedIntro = article ? (dailyContent.data?.intro_override?.trim() || article.intro?.trim() || "") : "";
+  const resolvedExcerpt = article ? (dailyContent.data?.excerpt_override?.trim() || resolvedIntro || article.excerpt) : "";
+
+  const hasRenderableContent = resolvedSections.length > 0 || !!resolvedIntro;
+
+  const markdownComponents = useMemo(
+    () => ({
+      h2: ({ children }: any) => (
+        <h2 className={`text-[1.45rem] font-black leading-tight text-foreground ${locale.headingClass}`}>
+          {children}
+        </h2>
+      ),
+      p: ({ children }: any) => <p className="text-[15px] leading-8 text-foreground">{children}</p>,
+    }),
+    [locale.headingClass]
+  );
+
   if (!article) {
     return (
       <Layout showBack compactBackHeader>
@@ -98,29 +122,6 @@ const ArticlePage = () => {
       </Layout>
     );
   }
-
-  const resolvedSections = useMemo(() => {
-    if (!article) return [] as { heading: string; body: string }[];
-    return dailyContent.sections.length ? dailyContent.sections : article.sections;
-  }, [article, dailyContent.sections]);
-
-  const resolvedTitle = dailyContent.data?.title_override?.trim() || article.title;
-  const resolvedIntro = dailyContent.data?.intro_override?.trim() || article.intro?.trim() || "";
-  const resolvedExcerpt = dailyContent.data?.excerpt_override?.trim() || resolvedIntro || article.excerpt;
-
-  const hasRenderableContent = resolvedSections.length > 0 || !!resolvedIntro;
-
-  const markdownComponents = useMemo(
-    () => ({
-      h2: ({ children }: any) => (
-        <h2 className={`text-[1.45rem] font-black leading-tight text-foreground ${locale.headingClass}`}>
-          {children}
-        </h2>
-      ),
-      p: ({ children }: any) => <p className="text-[15px] leading-8 text-foreground">{children}</p>,
-    }),
-    [locale.headingClass]
-  );
 
   const markdownClass = `article-markdown prose prose-sm max-w-none prose-headings:text-foreground prose-p:my-0 prose-p:text-foreground prose-p:leading-8 prose-p:text-[15px] prose-h2:mt-6 prose-h2:mb-3 prose-h2:border-b prose-h2:border-border prose-h2:pb-3 prose-h2:text-[1.45rem] prose-h2:font-black prose-ul:my-4 prose-ul:space-y-2 prose-li:text-[14px] prose-li:leading-7 prose-strong:text-foreground dark:prose-invert ${locale.isRTL ? "prose-headings:ar-heading prose-ul:ps-5" : "prose-ul:pl-5"}`;
 

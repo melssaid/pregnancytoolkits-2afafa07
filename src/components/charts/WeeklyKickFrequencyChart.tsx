@@ -58,8 +58,6 @@ export const WeeklyKickFrequencyChart = memo(function WeeklyKickFrequencyChart()
     if (b > a + 2) trend = "up";
     else if (b < a - 2) trend = "down";
     return { chartData: data, stats: { total, activeDays, peak, trend } };
-    // `tick` is intentionally a dependency: it's the live-data signal.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale, tick]);
 
   if (stats.total === 0) return null;
